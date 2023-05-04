@@ -92,7 +92,7 @@ public class TourPurchaseTest {
             var info = getDeclinedCard();
             purchasePage.sendingData(info);
             //Время отправки данных в базу данных, в секундах:
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(15);
             var expected = "DECLINED";
             var paymentInfo = getPaymentInfo();
             var orderInfo = getOrderInfo();
