@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.freefair.lombok' version '5.3.0'
     id 'io.qameta.allure' version '2.11.2'
 }
 
@@ -11,10 +12,11 @@ compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
 
 allure {
-    version = '2.22.0'
-    //Если используется JUnit5, то добавляется:
-    useJUnit5 { version = '2.22.0' }
-    //версия должна совпадать с версией allure
+    version = '2.16.1'
+
+    useJUnit5 {
+        version = '2.16.1'
+    }
 }
 
 repositories {
@@ -22,30 +24,18 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.26'
-    annotationProcessor 'org.projectlombok:lombok:1.18.26'
-
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
-    testImplementation 'com.codeborne:selenide:6.13.1'
-    testImplementation 'io.qameta.allure:allure-selenide:2.22.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+    testImplementation 'com.codeborne:selenide:6.14.1'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
-    testImplementation 'org.slf4j:slf4j-simple:1.7.33'
+    testImplementation 'commons-dbutils:commons-dbutils:1.7'
     testImplementation 'mysql:mysql-connector-java:8.0.33'
     testImplementation 'org.postgresql:postgresql:42.6.0'
-    testImplementation 'commons-dbutils:commons-dbutils:1.7'
-
-    testCompileOnly 'org.projectlombok:lombok:1.18.26'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+    testImplementation 'io.qameta.allure:allure-selenide:2.22.0'
 }
 
 test {
     useJUnitPlatform()
-    //В тестах, при вызове `gradlew test -Dheadless=true`
-    //будет передаваться этот параметр в JVM (где его подтянет Selenide)
-    systemProperty 'selenide.headless', System.getProperty('headless')
-    //Выбирается одна из баз данных:
-    //Для работы с базой данных mySQL (со строки ниже необходимо снять комментарий):
-    systemProperty 'datasource', System.getProperty('datasource', 'jdbc:mysql://localhost:3306/base_mysql')
-    //Для работы с базой данных postgreSQL (со строки ниже необходимо снять комментарий):
-    //systemProperty 'datasource', System.getProperty('datasource', 'jdbc:postgresql://localhost:5432/base_postgresql')
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
+    systemProperty 'app', System.getProperty('app')
 }

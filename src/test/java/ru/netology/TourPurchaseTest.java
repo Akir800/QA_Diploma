@@ -83,8 +83,8 @@ public class TourPurchaseTest {
     //Тесты на оплату и получения кредита по не валидной карте:
     public class InvalidCard {
 
-        @Test
         @SneakyThrows
+        @Test
         @DisplayName("Покупка не валидной картой")
         public void shouldPaymentInvalidCard() {
             var purchasePage = new PurchasePage();
@@ -104,8 +104,8 @@ public class TourPurchaseTest {
             purchasePage.bankDeclined();
         }
 
-        @Test
         @SneakyThrows
+        @Test
         @DisplayName("Получение кредита на покупку по не валидной карте")
         public void shouldCreditInvalidCard() {
             var purchasePage = new PurchasePage();
